@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Management System</title>
+</head>
+<body style="background-color:#b0d8dd;">
+<h1 style="text-align:center;">Student Management System</h>
+<h2 style="text-align:center;">Student Registration Forms</h2>
+<h2>Student Add</h2>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script>
+function studentAdd()
+{
+  var myForm = document.getElementById('studentForm');
+  var student = {
+       "studentID" : myForm.elements['studentID'].value,
+       "firstName" : myForm.elements['firstName'].value,
+       "lastName" : myForm.elements['lastName'].value,
+       "address" : myForm.elements['address'].value,
+       "dob"    : myForm.elements['dob'].value,
+       "gender" : myForm.elements['gender'].value,
+       "deptID" : myForm.elements['deptID'].value,
+       "status" : myForm.elements['status'].value,
+       "semester" : myForm.elements['semester'].value,
+       "yoj" : myForm.elements['yoj'].value
+  }
+
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/studentAdd",
+    data: student,
+    success : (result) => {
+      console.log("1",result);
+      alert("Successfully created a new student");
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Unable created a new student");
+    }
+  });
+}
+</script>
+
+<script>
+  function getstudent()
+  {
+    var myForm = document.getElementById('studentForm');
+    var student = {
+      "studentID" : myForm.elements['studentID'].value,
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/getstudent",
+    data: student,
+    success : (result) => {
+      console.log("1",result);
+      alert("successfully get the student details");
+      document.addform.firstName.value = result.record.firstName;
+      document.addform.lastName.value = result.record.lastName;
+      document.addform.address.value = result.record.address;
+      document.addform.dob.value = result.record.dob;
+      document.addform.yoj.value = result.record.yoj;
+      document.addform.gender.value = result.record.gender;
+      document.addform.deptID.value = result.record.deptID;
+      document.addform.semester.value = result.record.semester;
+      document.addform.status.value = result.record.status;
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Student not found!");
+    }
+  });
+  }
+</script>
+
+<script>
+  function updatestudent()
+  {
+    var myForm = document.getElementById('studentForm');
+    var student = {
+      "studentID" : myForm.elements['studentID'].value,
+      "firstName" : myForm.elements['firstName'].value,
+      "lastName" : myForm.elements['lastName'].value
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/updatestudent",
+    data: student,
+    success : (data) => {
+      console.log("1",data);
+      alert("Succesfully update a student");
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Student record doesnot updated!");
+    }
+  });
+  }
+</script>
+
+<script>
+ function deletestudent()
+  {
+    var myForm = document.getElementById('studentForm');
+    var student = {
+      "studentID" : myForm.elements['studentID'].value,
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/deletestudent",
+    data: student,
+    success : (data) => {
+      console.log("1",data);
+      alert("Successfully removed student");
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Unable to removed student");
+    }
+  });
+  } 
+</script>
+
+<script>
+  function marksAdd()
+  {
+    var myForm = document.getElementById('marksForm');
+    var student = {
+      "studentID" : myForm.elements['studentID'].value,
+      "deptID" : myForm.elements['deptID'].value,
+      "semester" : myForm.elements['semester'].value,
+      "course1_ID" : myForm.elements['course1_ID'].value,
+      "marks1" : myForm.elements[ 'marks1'].value,
+      "course2_ID" : myForm.elements['course2_ID'].value,
+      "marks2" : myForm.elements[ 'marks2'].value,
+      "course3_ID" : myForm.elements['course3_ID'].value,
+      "marks3" : myForm.elements[ 'marks3'].value,
+      "examStatus" : myForm.elements[ 'examStatus'].value,
+      "dateTaken" : myForm.elements[ 'dateTaken'].value
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/marksAdd",
+    data: student,
+    success : (data) => {
+      console.log("1",data);
+      alert("Successfully added marks");
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Unable to add marks!");
+  }
+ });
+ }
+</script>
+
+
+<script>
+  function getStudentsMarkList()
+  {
+    var myForm = document.getElementById('reportForm');
+    var student = {
+      "studentID" : myForm.elements['studentID'].value,
+
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/getStudentsMarkList",
+    data: student,
+    success : (data) => {
+      console.log("1",data);
+      alert("Successfully get the marks");
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Unable to get the marks!");
+  }
+ });
+ }
+</script>
+
+<script>
+  function getDepartmentWiseList()
+  {
+    var myForm = document.getElementById('reportForm');
+    var student = {
+      "deptID" : myForm.elements['deptID'].value,
+
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/getDepartmentWiseList",
+    data: student,
+    success : (data) => {
+      console.log("1",data);
+      alert("Successfully get department wise marks");
+
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Unable to get department wise marks!");
+  }
+ });
+ }
+</script>
+
+<script>
+  function getSemesterWiselist()
+  {
+    var myForm = document.getElementById('reportForm');
+    var student = {
+      "semester" : myForm.elements['semester'].value,
+
+    }
+    $.ajax({
+    method: "POST",
+    url: "http://localhost:2000/getSemesterWiselist",
+    data: student,
+    success : (data) => {
+      console.log("1",data);
+      alert("successfully get semester wise marks");
+    },
+    error : (error) => {
+      console.log("2",error);
+      alert("Unable to get semester wise marks!");
+  }
+ });
+ }
+</script>
+
+
+
+<form action="" name="addform" id="studentForm">
+
+    <label for="sid">Student_ID*:</label>
+    <input type="text" id="sid" name="studentID" required maxlength="10"><br><br>
+
+    <label for="fname">First name*:</label>
+    <input type="text" id="fname" name="firstName" pattern="[a-zA-Z]+" maxlength="32"><br><br>  
+
+    <label for="lname">Last name*:</label>
+    <input type="text" id="lname" name="lastName" maxlength="32"><br><br>
+
+    <label for="address">Address*:</label>
+    <input type="text" id="address" name="address" maxlength="100"><br><br>
+
+    <label for="date">DOB*:</label>
+    <input type="date" id="date" name="dob">
+
+    <label for="yoj">YOJ*:</label>
+    <input type="text" id="yoj" name="yoj"><br><br>
+
+    <label for="gender">Gender*:</label>
+    <input type="radio" id="gender" name="gender" value="M">
+    <label for="male">Male</label>
+
+    <input type="radio" id="gender" name="gender" value="F">
+    <label for="gender">Female</label><br>
+
+
+    <br><label name="deptID" for="dept">Department_Id:</label>
+    <select name="deptID" id="dept">
+      <option name="deptID" value="dept">Dept_id</option>
+      <option name="deptID" value="BCA2021">BCA2021</option>
+      <option name="deptID" value="BSC2021">BSC2021</option>
+      <option name="deptID" value="B.COM2021">B.COM2021</option>
+    </select>
+
+<br><br><label name="semester" for="quantity">Semester*:</label>
+<input type="number" name="semester" id="quantity" min="1" max="3">
+
+<br><br><label name="status" for="status">Status*:</label>
+<select name="status" id="status">
+  <option name="status" value="Status">Status</option>
+  <option name="status" value="Active">Active</option>
+  <option name="status" value="Suspended">Suspended</option>
+  <option  name="status" value="Rusticated">Rusticated</option>
+  <option name="status"  value="Graduate">Graduate</option>
+</select>
+
+<br><br>
+<input type="button" onclick="studentAdd()" value="Add">
+<input type="button" onclick="getstudent()" value="Get">
+<input type="button" onclick="updatestudent()" value="Modify">
+<input type="button" onclick="deletestudent()" value="Delete">
+<input type="reset">
+
+<br><br><hr size="10">
+</form>
+
+<form action="" name="marksform" id="marksForm">
+<h2>Marks Add</h2>
+<br><label for="sid">Student_ID*:</label>
+<input type="text" id="sid" name="studentID" required maxlength="10">
+
+<br><label name="deptID" for="dept">Department_Id:</label>
+    <select name="deptID" id="dept">
+      <option name="deptID" value="dept">Dept_id</option>
+      <option name="deptID" value="BCA2021">BCA2021</option>
+      <option name="deptID" value="BSC2021">BSC2021</option>
+      <option name="deptID" value="B.COM2021">B.COM2021</option>
+    </select>
+
+<label name="semester" for="quantity">Semester*:</label>
+<input type="number" name="semester" id="quantity" min="1" max="3"><br><br>
+
+<label for="courseID">Course1_Id:</label>
+<select name="course1_ID" id="courseID">
+  <option name="course1_ID" value="courseID">Course_Id</option>
+  <option name="course1_ID" value="BCA101">BCA101</option>
+  <option name="course1_ID" value="BCA102">BCA102</option>
+  <option name="course1_ID" value="BCA103">BCA103</option>
+  <option name="course1_ID" value="BCA104">BCA104</option>
+  <option name="course1_ID" value="BCA105">BCA105</option>
+  <option name="course1_ID" value="BCA106">BCA106</option>
+  <option name="course1_ID" value="BCA107">BCA107</option>
+  <option name="course1_ID" value="BCA108">BCA108</option>
+  <option name="course1_ID" value="BCA109">BCA109</option>
+  <option name="course1_ID" value="B.COM201">B.COM201</option>
+  <option name="course1_ID" value="B.COM202">B.COM202</option>
+  <option name="course1_ID" value="B.COM203">B.COM203</option>
+  <option name="course1_ID" value="B.COM204">B.COM204</option>
+  <option name="course1_ID" value="B.COM205">B.COM205</option>
+  <option name="course1_ID" value="B.COM206">B.COM206</option>
+  <option name="course1_ID" value="B.COM207">B.COM207</option>
+  <option name="course1_ID" value="B.COM208">B.COM208</option>
+  <option name="course1_ID" value="B.COM209">B.COM209</option>
+  <option name="course1_ID" value="BSC301">BSC301</option>
+  <option name="course1_ID" value="BSC302">BSC302</option>
+  <option name="course1_ID" value="BSC303">BSC303</option>
+  <option name="course1_ID" value="BSC304">BSC304</option>
+  <option name="course1_ID" value="BSC305">BSC305</option>
+  <option name="course1_ID" value="BSC306">BSC306</option>
+  <option name="course1_ID" value="BSC307">BSC307</option>
+  <option name="course1_ID" value="BSC308">BSC308</option>
+  <option name="course1_ID" value="BSC309">BSC309</option>
+</select>
+
+<label for="marks">Mark:</label>
+<input type="number" id="marks" name="marks1" min="0" max="100"><br><br>
+
+<label for="courseID">Course2_Id:</label>
+<select name="course2_ID" id="courseID">
+  <option name="course2_ID" value="courseID">Course_Id</option>
+  <option name="course2_ID" value="BCA101">BCA101</option>
+  <option name="course2_ID" value="BCA102">BCA102</option>
+  <option name="course2_ID" value="BCA103">BCA103</option>
+  <option name="course2_ID" value="BCA104">BCA104</option>
+  <option name="course2_ID" value="BCA105">BCA105</option>
+  <option name="course2_ID" value="BCA106">BCA106</option>
+  <option name="course2_ID" value="BCA107">BCA107</option>
+  <option name="course2_ID" value="BCA108">BCA108</option>
+  <option name="course2_ID" value="BCA109">BCA109</option>
+  <option name="course2_ID" value="B.COM201">B.COM201</option>
+  <option name="course2_ID" value="B.COM202">B.COM202</option>
+  <option name="course2_ID" value="B.COM203">B.COM203</option>
+  <option name="course2_ID" value="B.COM204">B.COM204</option>
+  <option name="course2_ID" value="B.COM205">B.COM205</option>
+  <option name="course2_ID" value="B.COM206">B.COM206</option>
+  <option name="course2_ID" value="B.COM207">B.COM207</option>
+  <option name="course2_ID" value="B.COM208">B.COM208</option>
+  <option name="course2_ID" value="B.COM209">B.COM209</option>
+  <option name="course2_ID" value="BSC301">BSC301</option>
+  <option name="course2_ID" value="BSC302">BSC302</option>
+  <option name="course2_ID" value="BSC303">BSC303</option>
+  <option name="course2_ID" value="BSC304">BSC304</option>
+  <option name="course2_ID" value="BSC305">BSC305</option>
+  <option name="course2_ID" value="BSC306">BSC306</option>
+  <option name="course2_ID" value="BSC307">BSC307</option>
+  <option name="course2_ID" value="BSC308">BSC308</option>
+  <option name="courscourse2_IDeID" value="BSC309">BSC309</option>
+</select>
+
+<label for="marks">Mark:</label>
+<input type="number" id="marks" name="marks2" min="0" max="100"><br><br>
+
+<label for="courseID">Course3_Id:</label>
+<select name="course3_ID" id="courseID">
+  <option name="course3_ID" value="courseID">Course_Id</option>
+  <option name="course3_ID" value="BCA101">BCA101</option>
+  <option name="course3_ID" value="BCA102">BCA102</option>
+  <option name="course3_ID" value="BCA103">BCA103</option>
+  <option name="course3_ID" value="BCA104">BCA104</option>
+  <option name="course3_ID" value="BCA105">BCA105</option>
+  <option name="course3_ID" value="BCA106">BCA106</option>
+  <option name="course3_ID" value="BCA107">BCA107</option>
+  <option name="course3_ID" value="BCA108">BCA108</option>
+  <option name="course3_ID" value="BCA109">BCA109</option>
+  <option name="course3_ID" value="B.COM201">B.COM201</option>
+  <option name="course3_ID" value="B.COM202">B.COM202</option>
+  <option name="course3_ID" value="B.COM203">B.COM203</option>
+  <option name="course3_ID" value="B.COM204">B.COM204</option>
+  <option name="course3_ID" value="B.COM205">B.COM205</option>
+  <option name="course3_ID" value="B.COM206">B.COM206</option>
+  <option name="course3_ID" value="B.COM207">B.COM207</option>
+  <option name="course3_ID" value="B.COM208">B.COM208</option>
+  <option name="course3_ID" value="B.COM209">B.COM209</option>
+  <option name="course3_ID" value="BSC301">BSC301</option>
+  <option name="course3_ID" value="BSC302">BSC302</option>
+  <option name="course3_ID" value="BSC303">BSC303</option>
+  <option name="course3_ID" value="BSC304">BSC304</option>
+  <option name="course3_ID" value="BSC305">BSC305</option>
+  <option name="course3_ID" value="BSC306">BSC306</option>
+  <option name="course3_ID" value="BSC307">BSC307</option>
+  <option name="course3_ID" value="BSC308">BSC308</option>
+  <option name="course3_ID" value="BSC309">BSC309</option>
+</select>
+
+<label for="marks">Mark:</label>
+<input type="number" id="marks" name="marks3" min="0" max="100"><br><br>
+
+<label for="examStatus">Exam status</label>
+<select name="examStatus" id="examStatus">
+  <option name="examStatus" value="Status">Status</option>
+  <option name="examStatus" value="Present">Present</option>
+  <option name="examStatus" value="Absent">Absent</option>
+</select>
+
+<label for="month">Date taken</label>
+<input type="month" id="month" name="dateTaken">
+
+
+<!-- <label for="courseID">Course2_Id:</label>
+<input type="text" id="courseID" name="courseID">
+<label for="marks">Mark:</label>
+<input type="number" id="marks" name="marks" min="0" max="100"><br><br>
+
+<label for="courseID">Course3_Id:</label>
+<input type="text" id="courseID" name="courseID">
+<label for="marks">Mark:</label>
+<input type="number" id="marks" name="marks" min="0" max="100"><br><br> -->
+
+<br><br>
+<input type="button" onclick="marksAdd()" value="Add">
+<input type="reset">
+
+<br><br><hr size="10">
+</form>
+
+<form action="" name="reportform" id="reportForm">
+<h2>Report</h2>
+<br><label for="sid">Student_ID:</label>
+<input type="text" id="sid" name="studentID" required maxlength="10">
+
+<br><label name="deptID" for="dept">Department_Id:</label>
+    <select name="deptID" id="dept">
+      <option name="deptID" value="dept">Dept_id</option>
+      <option name="deptID" value="BCA2021">BCA2021</option>
+      <option name="deptID" value="BSC2021">BSC2021</option>
+      <option name="deptID" value="B.COM2021">B.COM2021</option>
+    </select>
+
+<label name="semester" for="quantity">Semester*:</label>
+<input type="number" name="semester" id="quantity" min="1" max="3">
+
+<br><br>
+<input type="button" onclick="getStudentsMarkList()" value="My Marks">
+<input type="button" onclick="getDepartmentWiseList()" value="Department Wise">
+<input type="button" onclick="getSemesterWiselist()" value="Semester Wise">
+<input type="reset">
+
+
+</form>
+</body>
+</html>
