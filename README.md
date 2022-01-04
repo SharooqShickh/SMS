@@ -1,3 +1,4 @@
 # SMS
-hi how r u  i am fine tq
-congrats u won the first prize
+This is my first repository.
+This application is about Student management system,
+where we can manage student details and student marks.
