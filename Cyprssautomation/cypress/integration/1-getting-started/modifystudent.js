@@ -4,7 +4,7 @@ describe('My First Test', () => {
       cy.contains("Student Registration Forms")
       cy.get('#studentForm > #sid').type('2020BCOM03')
       cy.get('#fname').type('Sharooq')
-      cy.get('#lname').type('Shickh')
+      cy.get('#lname').type('shickh')
       cy.get('input[onclick="updatestudent()"]').click()
     })
 })
